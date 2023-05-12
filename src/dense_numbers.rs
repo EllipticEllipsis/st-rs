@@ -1,8 +1,4 @@
-#![allow(non_snake_case)]
-#![allow(non_upper_case_globals)]
-
-use binrw::prelude::*;
-use std::fmt;
+use crate::*;
 
 /* dense numbers or sometimes called block numbers are stored in this type,
  *	a rfd of 0xffffffff is an index into the global table.
@@ -18,6 +14,16 @@ pub struct DNR {
 
 impl fmt::Display for DNR {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "DNR {{ rfd: {:08X}, index: {:5X} }}", self.rfd, self.index)
+        let rfd_str = if self.rfd == ST_EXTIFD {
+            "ST_EXTIFD".to_string()
+        } else {
+            format!("{:9}", self.rfd)
+        };
+        let index_str = if self.index == ST_ANONINDEX {
+            "ST_ANONINDEX".to_string()
+        } else {
+            format!("{:12}", self.index)
+        };
+        write!(f, "DNR {{ rfd: {}, index: {} }}", rfd_str, index_str)
     }
 }

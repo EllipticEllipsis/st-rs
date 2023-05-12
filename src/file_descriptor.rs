@@ -64,10 +64,6 @@ pub struct FDR {
                            // } FDR, *pFDR;
 }
 
-fn bits_get(bitfield: u32, width: u32, position: u32) -> u32 {
-    (bitfield << position) >> (32 - width)
-}
-
 #[derive(Debug, Display, PartialEq, FromRepr)]
 pub enum lang {
     C,
@@ -124,30 +120,21 @@ impl fmt::Display for FDR {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
-            "FDR {{ \
-                adr: {:#X}, \
-                rss: {}, \
-                issBase: {:#X}, \
-                cbSs: {:#X}, \
-                isymBase: {:#X}, \
-                csym: {}, \
-                ilineBase: {:#X}, \
-                cline: {}, \
-                ioptBase: {:#X}, \
-                copt: {}, \
-                ipdFirst: {:#X}, \
-                cpd: {}, \
-                iauxBase: {:#X}, \
-                caux: {}, \
-                rfdBase: {:#X}, \
-                crfd: {}, \
-                BITFIELD: {:#034b}, \
-                cbLineOffset: {:#X}, \
-                cbLine: {:#X} \
-            }}\n\
-            BITFIELD: {{ \
-                lang: {}, fMerge: {}, fReadin: {}, fBigendian: {}, glevel: {}, signedchar: {}, ipdFirstMSBits: {:#X}, cpdMSBits: {:#X}, reserved: {:#015b} \
-            }}",
+            "FDR {{
+    adr: {:#010X}, rss: {},
+    issBase:      {:#X}, cbSs:   {:#X},
+    isymBase:     {:#X}, csym:   {},
+    ilineBase:    {:#X}, cline:  {},
+    ioptBase:     {:#X}, copt:   {},
+    ipdFirst:     {:#X}, cpd:    {},
+    iauxBase:     {:#X}, caux:   {},
+    rfdBase:      {:#X}, crfd:   {},
+    BITFIELD: {:#034b},
+    cbLineOffset: {:#X}, cbLine: {:#X},
+}}
+    BITFIELD: {{
+        lang: {}, fMerge: {}, fReadin: {}, fBigendian: {}, glevel: {}, signedchar: {}, ipdFirstMSBits: {:#X}, cpdMSBits: {:#X}, reserved: {:#015b}
+    }}",
             self.adr,
             self.rss,
             self.issBase,

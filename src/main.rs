@@ -1,13 +1,13 @@
 #![allow(non_snake_case)]
 #![allow(non_upper_case_globals)]
 #![allow(non_camel_case_types)]
+#![allow(clippy::upper_case_acronyms)]
 
 mod dense_numbers;
 mod file_descriptor;
 mod header;
 mod procedure_descriptor;
 mod symbol;
-use std::io::BufRead;
 use std::{env, fmt, fs::File};
 
 use binrw::{io::*, NullString};
@@ -19,6 +19,7 @@ use strum_macros::FromRepr;
 
 const indexNil: u32 = 0xFFFFF;
 const ST_EXTIFD: u32 = 0x7fffffff; /* ifd for externals */
+#[allow(dead_code)]
 const ST_RFDESCAPE: u32 = 0xfff; /* rndx.rfd escape says next aux is rfd */
 const ST_ANONINDEX: u32 = 0xfffff; /* rndx.index for anonymous names */
 
